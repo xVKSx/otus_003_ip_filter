@@ -1,8 +1,10 @@
+#include <utility>
+
 #include "ip.h"
 
 namespace IpAddress_NS {
 
-    FilterPartIPv4::FilterPartIPv4(size_t index, const std::string &value) : index(index), value(value) {}
+    FilterPartIPv4::FilterPartIPv4(size_t index, std::string value) : index(index), value(std::move(value)) {}
 
     string IPv4::getByIndex(size_t index) const {
         return ipv4.at(index);

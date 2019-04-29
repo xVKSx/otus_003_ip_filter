@@ -8,7 +8,7 @@ namespace IpAddress_NS {
     using namespace std;
 
     struct FilterPartIPv4 {
-        FilterPartIPv4(size_t index, const string &value);
+        FilterPartIPv4(size_t index, string value);
 
         size_t index;
         string value;
@@ -21,7 +21,7 @@ namespace IpAddress_NS {
 
     class IPv4 {
     public:
-        IPv4(vector<string> ipv4) : ipv4(move(ipv4)) {}
+        explicit IPv4(vector<string> ipv4) : ipv4(move(ipv4)) {}
 
         friend bool operator<(const IPv4 &lhs, const IPv4 &rhs);
 

@@ -1,29 +1,18 @@
-//#include <cassert>
-//#include <cstdlib>
 #include <iostream>
-#include <istream>
-#include <fstream>
 #include <string>
 #include <vector>
-#include <sstream>
-//#include <iterator>
 #include <algorithm>
-#include "ip_address/ip.h"
-#include "tool/tokenize.h"
 
+#include "ip.h"
+#include "tokenize.h"
 
 int main() {
 
     try {
 
-        std::ifstream f_read("../../ip_filter.tsv");
-        if (!f_read) {
-            return 1;
-        }
-
         IpAddress_NS::PoolIPv4 ip_pool_;
 
-        for (std::string line; std::getline(f_read, line);) {
+        for (std::string line; std::getline(std::cin, line);) {
             std::vector<std::string> v = tokenize(line, '\t');
             ip_pool_.emplace_back(tokenize(v.at(0), '.'));
         }
@@ -39,34 +28,31 @@ int main() {
         // TODO filter by first byte and output
         // ip = filter(1)
 
-        std::cout << " ============ TODO filter by first byte and output ============ " << std::endl;
-        IpAddress_NS::PoolIPv4 tmp = ip_pool_.filter(IpAddress_NS::FilterPartIPv4{0, "1"});
+        IpAddress_NS::PoolIPv4 filtered_pool_1 = ip_pool_.filter(IpAddress_NS::FilterPartIPv4{0, "1"});
 
-        for (const auto &ip : tmp) {
+        for (const auto &ip : filtered_pool_1) {
             std::cout << ip << std::endl;
         }
 
         // TODO filter by first and second bytes and output
         // ip = filter(46, 70)
 
-        std::cout << " ============ TODO filter by first and second bytes and output ============ " << std::endl;
-        IpAddress_NS::PoolIPv4 tmp2 = ip_pool_.filter(IpAddress_NS::FilterPartIPv4{0, "46"},
-                                                      IpAddress_NS::FilterPartIPv4{1, "70"});
+        IpAddress_NS::PoolIPv4 filtered_pool_2 = ip_pool_.filter(IpAddress_NS::FilterPartIPv4{0, "46"},
+                                                                         IpAddress_NS::FilterPartIPv4{1, "70"});
 
-        for (const auto &ip : tmp2) {
+        for (const auto &ip : filtered_pool_2) {
             std::cout << ip << std::endl;
         }
 
         // TODO filter by any byte and output
         // ip = filter_any(46)
 
-        std::cout << " ============ TODO filter by any byte and output ============ " << std::endl;
-        IpAddress_NS::PoolIPv4 tmp3 = ip_pool_.filterAny(IpAddress_NS::FilterPartIPv4{0, "46"},
+        IpAddress_NS::PoolIPv4 filtered_pool_3 = ip_pool_.filterAny(IpAddress_NS::FilterPartIPv4{0, "46"},
                                                          IpAddress_NS::FilterPartIPv4{1, "46"},
                                                          IpAddress_NS::FilterPartIPv4{2, "46"},
                                                          IpAddress_NS::FilterPartIPv4{3, "46"});
 
-        for (const auto &ip : tmp3) {
+        for (const auto &ip : filtered_pool_3) {
             std::cout << ip << std::endl;
         }
     }

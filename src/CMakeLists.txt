@@ -2,18 +2,27 @@ cmake_minimum_required(VERSION 3.2)
 
 project(ip_filter VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
-#add_definitions(-DAPP_VERSION_MAJOR="${PROJECT_VERSION_MAJOR}")
-#add_definitions(-DAPP_VERSION_MINOR="${PROJECT_VERSION_MINOR}")
-#add_definitions(-DAPP_VERSION_PATCH="${PROJECT_VERSION_PATCH}")
-#add_definitions(-DAPP_VERSION_TWEAK="${PROJECT_VERSION_TWEAK}")
-
-add_executable(ip_filter ip_filter.cpp ip_address/ip.cpp tool/tokenize.cpp)
+add_executable(ip_filter ip_filter.cpp)
 
 set_target_properties(ip_filter PROPERTIES
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
         COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
         )
+
+include_directories(ip_address tool)
+
+add_library(ip_address_lib
+        ip_address/ip.h
+        ip_address/ip.cpp
+        )
+
+add_library(tool_dir
+        tool/tokenize.h
+        tool/tokenize.cpp
+        )
+
+target_link_libraries(ip_filter ip_address_lib tool_dir)
 
 install(TARGETS ip_filter RUNTIME DESTINATION bin)
 

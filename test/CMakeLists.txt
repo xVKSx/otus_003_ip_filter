@@ -1,25 +1,9 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(ip_filter_test)
-
-#add_library(hw_app ../src/app.cpp)
-add_executable(test_ip_filter src/test_ip_filter.cpp)
-
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-
-set_target_properties(test_ip_filter PROPERTIES
-        CXX_STANDARD 14
-        CXX_STANDARD_REQUIRED ON
-        COMPILE_OPTIONS "-Wall;-Wextra"
-        )
-set_target_properties(test_ip_filter PROPERTIES
-        COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-        INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
-        )
-
-#target_link_libraries(test_ip_filter hw_app)
-target_link_libraries(test_ip_filter ${Boost_LIBRARIES})
+project(ip_filter_all_test)
 
 enable_testing()
 
-add_test(${PROJECT_NAME}_executable test_ip_filter)
+add_subdirectory(src)
+add_subdirectory(src/tool)
+

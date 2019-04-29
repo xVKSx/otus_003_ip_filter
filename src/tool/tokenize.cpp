@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "tokenize.h"
 
 std::vector<std::string> tokenize(const std::string &s, char delimiter) {
