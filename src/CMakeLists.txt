@@ -7,7 +7,7 @@ project(ip_filter VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 #add_definitions(-DAPP_VERSION_PATCH="${PROJECT_VERSION_PATCH}")
 #add_definitions(-DAPP_VERSION_TWEAK="${PROJECT_VERSION_TWEAK}")
 
-add_executable(ip_filter ip_filter.cpp)
+add_executable(ip_filter ip_filter.cpp ip_address/ip.cpp tool/tokenize.cpp)
 
 set_target_properties(ip_filter PROPERTIES
         CXX_STANDARD 14
