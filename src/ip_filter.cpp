@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-//#include <fstream>
 
 #include "ip.h"
 #include "tokenize.h"
@@ -11,14 +10,8 @@ int main() {
 
     try {
 
-//        std::ifstream f_read("../../ip_filter_min.tsv");
-//        if (!f_read) {
-//            return 1;
-//        }
-
         IpAddress_NS::PoolIPv4 ip_pool_;
 
-//        for (std::string line; std::getline(f_read, line);) {
         for (std::string line; std::getline(std::cin, line);) {
             std::vector<std::string> v = tokenize(line, '\t');
             ip_pool_.emplace_back(tokenize(v.at(0), '.'));
